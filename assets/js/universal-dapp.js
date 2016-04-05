@@ -418,7 +418,8 @@ UniversalDApp.prototype.runTx = function( data, args, cb) {
     if (!this.vm) {
         if (constant && !isConstructor) {
             var func = web3.eth.contract( [args.abi] ).at( to );
-            func[args.abi.name].call( cb );
+            var callArgs = "0x" + data.slice(10);
+            func[args.abi.name].call(callArgs, cb );
         } else {
             var tx = {
                 from: self.options.getAddress ? self.options.getAddress() : web3.eth.accounts[0],
